@@ -7,7 +7,7 @@ var order = jsPsych.randomization.repeat([0, 1, 2, 3], 1);
 var prompt = "Write down what you learned about ";
 var currentSentence = "";
 
-// Timeline that holds javascript variables (instructioins, stimuli) to appear in chronological order 
+// Timeline that holds javascript variables (instructions, stimuli) to appear in chronological order 
 var timeline = [
 ];
 
@@ -19,7 +19,7 @@ const filename = `${subject_id}.csv`;
 // Instructions
 var instructions = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<p>You will be presented with four passages. After every passage, you will be asked to write all that you've learned from it. You will not be able to refer back to the passages.</p><p>Press the 'b' key to begin.</p>",
+    stimulus: "<p>You will be presented with four passages. After every passage, you will be asked to write all that you've learned from it. You will not be able to refer back to the passages. Please do not skip any questions, and answer as thoroughly as possible.</p><p>Press the 'b' key to begin.</p>",
     choices: ["b"],
 };
 
@@ -37,7 +37,7 @@ currentSentence = prompt + animals[order[0]] + ".";
 var question_1 = {
     type: jsPsychSurveyText,
     questions: [
-        {prompt: currentSentence, rows: 8}
+        {prompt: currentSentence, rows: 12}
     ]
 }
 
@@ -55,7 +55,7 @@ currentSentence = prompt + animals[order[1]] + ".";
 var question_2 = {
     type: jsPsychSurveyText,
     questions: [
-        {prompt: currentSentence, rows: 8}
+        {prompt: currentSentence, rows: 12}
     ]
 }
 
@@ -73,7 +73,7 @@ currentSentence = prompt + animals[order[2]] + ".";
 var question_3 = {
     type: jsPsychSurveyText,
     questions: [
-        {prompt: currentSentence, rows: 8}
+        {prompt: currentSentence, rows: 12}
     ]
 }
 
@@ -91,11 +91,21 @@ currentSentence = prompt + animals[order[3]] + ".";
 var question_4 = {
     type: jsPsychSurveyText,
     questions: [
-        {prompt: currentSentence, rows: 8}
+        {prompt: currentSentence, rows: 12}
     ]
 }
 
 timeline.push(passage_4, question_4);
+
+// feedback (pilot only)
+var feedback = {
+    type: jsPsychSurveyText,
+    questions: [
+        {prompt: "<p>You've completed all four passages. Please do NOT exit out of the experiment yet.</p><p>If you have any feedback (i.e. any issues you encountered, if you noticed errors with the passages, if you thought the passages were too easy/too hard, etc), you can write in the box below.</p>", rows: 8}
+    ]
+}
+
+timeline.push(feedback);
 
 // datapipe stuff
 const save_data = {
